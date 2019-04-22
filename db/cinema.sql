@@ -3,6 +3,7 @@ DROP TABLE showings;
 DROP TABLE films;
 DROP TABLE customers;
 
+
   CREATE TABLE customers
   (
     id SERIAL4 PRIMARY KEY,
@@ -21,8 +22,9 @@ DROP TABLE customers;
   (
     id SERIAL4 PRIMARY KEY,
     film_id INT4 REFERENCES films(id) ON DELETE CASCADE,
-    fee INT4,
-    time VARCHAR(255)
+    time VARCHAR(255),
+    screen INT2
+
 
   );
 
@@ -30,6 +32,5 @@ DROP TABLE customers;
   (
     id SERIAL4 PRIMARY KEY,
     customer_id INT4 REFERENCES customers(id) ON DELETE CASCADE,
-    showing_id INT4 REFERENCES showings(id) ON DELETE CASCADE,
-    fee INT4
+    showing_id INT4 REFERENCES showings(id) ON DELETE CASCADE
   );

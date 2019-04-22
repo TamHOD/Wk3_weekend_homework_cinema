@@ -38,6 +38,32 @@ class Film
     SqlRunner.run(sql, values)
   end
 
+  def customers()
+    sql = "SELECT customers.* FROM customers
+    INNER JOIN tickets
+    ON tickets.customer_id = customers.id
+    INNER JOIN showings
+    ON showings.id = tickets.showing_id
+    WHERE showings.film_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    customers_list = results.map { |customer| Customer.new(customer) }
+    return customers_list
+  end
+
+  def how_many_customers()
+    sql = "SELECT customers.* FROM customers
+    INNER JOIN tickets
+    ON tickets.customer_id = customers.id
+    INNER JOIN showings
+    ON showings.id = tickets.showing_id
+    WHERE showings.film_id = $1"
+    values = [@id]
+    results = SqlRunner.run(sql, values)
+    customers_list = results.map { |customer| Customer.new(customer) }
+    return customers_list.count
+  end
+
   def self.find(id)
     sql = "SELECT films.* FROM films WHERE id = $1;"
     values = [id]
